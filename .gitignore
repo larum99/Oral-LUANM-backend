@@ -9,3 +9,7 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local documentation / notes
+docs-local/
+NOTAS_REVISION_PATIENT.txt
