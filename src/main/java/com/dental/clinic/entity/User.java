@@ -44,8 +44,16 @@ public class User {
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_role", nullable = false)
+    private Role role;
+
+
+    // Constructores
     public User() {
     }
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
