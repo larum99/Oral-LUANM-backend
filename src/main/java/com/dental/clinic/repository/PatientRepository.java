@@ -9,4 +9,5 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     boolean existsByDocumentNumber(String documentNumber);
     boolean existsByUserId(Long userId);
     Optional<Patient> findByUserId(Long userId);
+    Optional<Patient> findByDocumentNumber(String documentNumber);
 }

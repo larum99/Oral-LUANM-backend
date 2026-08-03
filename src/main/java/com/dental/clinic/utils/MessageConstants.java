@@ -10,6 +10,7 @@ public final class MessageConstants {
     public static final String PATIENT_DOCUMENT_DUPLICATE = "Patient with document number %s already exists";
     public static final String USER_ALREADY_ASSOCIATED = "User with id %s is already associated with a patient";
     public static final String USER_ALREADY_ASSOCIATED_OTHER = "User with id %s is already associated with another patient";
+    public static final String AUTH_INVALID_CREDENTIALS = "Invalid email or password";
 
     public static final String ERROR_TITLE_RESOURCE_NOT_FOUND = "Resource Not Found";
     public static final String ERROR_TITLE_DUPLICATE_RESOURCE = "Duplicate Resource";
