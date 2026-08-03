@@ -1,10 +1,10 @@
 package com.dental.clinic.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-
 
 @Entity
 @Table(name = "users")
@@ -15,8 +15,15 @@ public class User {
     @Column(name = "id_user")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "id_role",
+            nullable = false
+    )
+    private Role role;
+
     @Column(name = "first_name", nullable = false, length = 100)
-    private String firstname;
+    private String firstName;
 
     @Column(name = "last_name", length = 100)
     private String lastName;
@@ -34,18 +41,27 @@ public class User {
     private String status;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
+    @Column(
+            name = "created_at",
+            nullable = false,
+            updatable = false
+    )
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(
+            name = "updated_at",
+            nullable = false
+    )
     private LocalDateTime updatedAt;
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
+
     public User() {
     }
+
 
     public Long getId() {
         return id;
@@ -55,13 +71,24 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+
+    public Role getRole() {
+        return role;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setRole(Role role) {
+        this.role = role;
     }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
 
     public String getLastName() {
         return lastName;
@@ -71,6 +98,7 @@ public class User {
         this.lastName = lastName;
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -78,6 +106,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public String getPhone() {
         return phone;
@@ -87,6 +116,7 @@ public class User {
         this.phone = phone;
     }
 
+
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -94,6 +124,7 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
 
     public String getStatus() {
         return status;
@@ -103,21 +134,16 @@ public class User {
         this.status = status;
     }
 
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public LocalDateTime getLastLogin() {
         return lastLogin;
