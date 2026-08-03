@@ -33,7 +33,7 @@ public class AdminUserSeeder implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
         Role adminRole = roleRepository.findByName("ADMIN")
-                .orElseGet(() -> createRole("ADMIN", "Administracion completa de la plataforma"));
+                .orElseGet(() -> createRole("ADMIN", "Administración completa de la plataforma"));
 
         User admin = userRepository.findByEmailIgnoreCase(ADMIN_EMAIL)
                 .orElseGet(User::new);
