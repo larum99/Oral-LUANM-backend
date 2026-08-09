@@ -1,0 +1,9 @@
+.git
+.gradle
+build
+out
+HELP.md
+*.iml
+.env
+.env.*
+!/.env.example
