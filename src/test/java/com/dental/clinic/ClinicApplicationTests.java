@@ -1,19 +1,18 @@
 package com.dental.clinic;
 
-import com.dental.clinic.dto.request.LoginRequest;
-import com.dental.clinic.dto.response.AuthUserResponse;
-import com.dental.clinic.service.AuthService;
+import com.dental.clinic.modules.auth.dto.request.LoginRequest;
+import com.dental.clinic.modules.auth.dto.response.AuthUserResponse;
+import com.dental.clinic.modules.auth.service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest(properties = {
-        "app.security.jwt.secret=test-secret-for-jwt-authentication-32-chars",
-        "app.security.jwt.expiration-minutes=480"
-})
+@SpringBootTest
+@ActiveProfiles("test")
 class ClinicApplicationTests {
 
     @Autowired

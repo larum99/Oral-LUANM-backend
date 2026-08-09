@@ -1,32 +1,40 @@
-﻿spring:
+spring:
   application:
     name: clinic
-
-  datasource:
-    url: ${DB_URL:jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:dental_clinic}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Bogota}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:change-me-root}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    default: dev
+  threads:
+    virtual:
+      enabled: true
 
   jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
     open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
-
-  sql:
-    init:
-      mode: never
 
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
+  error:
+    include-stacktrace: never
+    include-message: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 app:
   security:
     jwt:
-      secret: ${JWT_SECRET}
       expiration-minutes: ${JWT_EXPIRATION_MINUTES:480}
-
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5500,http://127.0.0.1:5500,http://localhost:8080,http://127.0.0.1:8080}

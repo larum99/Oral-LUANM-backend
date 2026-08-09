@@ -279,6 +279,8 @@ CREATE TABLE appointments (
 
     status VARCHAR(20) NOT NULL DEFAULT 'PENDIENTE',
 
+    version BIGINT NOT NULL DEFAULT 0,
+
     created_by BIGINT UNSIGNED,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -485,6 +487,9 @@ CREATE INDEX idx_appointments_patient
 
 CREATE INDEX idx_appointments_specialist
     ON appointments(id_specialist);
+
+CREATE INDEX idx_appointments_specialist_window_status
+    ON appointments(id_specialist, start_datetime, end_datetime, status);
 
 CREATE INDEX idx_appointments_datetime_status
     ON appointments(start_datetime, status);

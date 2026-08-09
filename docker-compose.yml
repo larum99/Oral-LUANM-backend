@@ -4,19 +4,17 @@ services:
     container_name: oral-luanm-mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: dental_clinic
-      MYSQL_ROOT_PASSWORD: change-me-root
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-dental_clinic}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me-root}
     ports:
-      - 3306:3306
+      - "${DB_PORT:-3306}:3306"
     volumes:
       - oral_luanm_mysql_data:/var/lib/mysql
-      - ./src/main/resources/database:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: mysqladmin ping -h 127.0.0.1 -uroot -pchange-me-root --silent
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
       interval: 10s
       timeout: 5s
       retries: 10
 
 volumes:
   oral_luanm_mysql_data:
-
