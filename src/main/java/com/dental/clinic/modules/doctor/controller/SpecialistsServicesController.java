@@ -27,7 +27,7 @@ public class SpecialistsServicesController {
     }
 
     @GetMapping("/specialists")
-    @PreAuthorize("hasAnyRole('ADMIN','SECRETARIO','ESPECIALISTA')")
+    @PreAuthorize("hasAnyRole('ADMIN','SECRETARIO','ESPECIALISTA','PACIENTE')")
     public List<SpecialistResponse> specialists() {
         return catalogService.findSpecialists();
     }
