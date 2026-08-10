@@ -107,9 +107,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointmentRepository.findDetailedById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cita no encontrada: " + id));
         User changedBy = findOptionalUserByEmail(changedByEmail);
+        if (isPatientUser(changedBy) && !isAppointmentOwner(appointment, changedBy)) {
+            throw new BusinessException("No puedes modificar una cita de otro paciente.");
+        }
         AppointmentStatus previousStatus = appointment.getStatus();
         AppointmentStatus requestedStatus = request.resolvedStatus();
-        applyAppointmentData(appointment, request, request.getPatientId(), requestedStatus, id);
+        Long patientId = request.getPatientId() != null ? request.getPatientId() : appointment.getPatient().getId();
+        applyAppointmentData(appointment, request, patientId, requestedStatus, id);
         Appointment saved = appointmentRepository.save(appointment);
         if (previousStatus != requestedStatus) {
             insertHistory(saved, previousStatus, requestedStatus, "Estado actualizado", changedBy);
@@ -131,6 +135,17 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentMapper.toResponse(appointmentRepository.findDetailedById(saved.getId()).orElseThrow());
     }
 
+    private boolean isPatientUser(User user) {
+        return user != null
+                && user.getRole() != null
+                && "PACIENTE".equalsIgnoreCase(user.getRole().getName());
+    }
+
+    private boolean isAppointmentOwner(Appointment appointment, User user) {
+        return appointment.getPatient() != null
+                && appointment.getPatient().getUser() != null
+                && appointment.getPatient().getUser().getId().equals(user.getId());
+    }
     private Appointment buildAppointment(AppointmentRequest request, Long patientId, User createdBy, AppointmentStatus status, Long excludeId) {
         Appointment appointment = new Appointment();
         appointment.setCreatedBy(createdBy);
