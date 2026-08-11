@@ -32,7 +32,13 @@ public final class AccessControlMapper {
                 user.getStatus(),
                 user.getRole().getId(),
                 user.getRole().getName(),
-                patient == null ? null : patient.getId()
+                patient == null ? null : patient.getId(),
+                patient == null ? null : patient.getDocumentType(),
+                patient == null ? null : patient.getDocumentNumber(),
+                patient == null ? null : patient.getDocumentNumber(),
+                patient == null ? null : patient.getBirthDate(),
+                patient == null ? null : patient.getAcceptsData(),
+                patient == null ? null : patient.getAcceptsPromotions()
         );
     }
 

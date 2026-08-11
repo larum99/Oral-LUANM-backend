@@ -1,5 +1,7 @@
 package com.dental.clinic.modules.auth.dto.response;
 
+import java.time.LocalDate;
+
 public record UserAdminResponse(
         Long id,
         String firstName,
@@ -10,6 +12,12 @@ public record UserAdminResponse(
         String status,
         Short roleId,
         String role,
-        Long patientId
+        Long patientId,
+        String documentType,
+        String patientDocument,
+        String documentNumber,
+        LocalDate birthDate,
+        Boolean acceptsData,
+        Boolean acceptsPromotions
 ) {
 }

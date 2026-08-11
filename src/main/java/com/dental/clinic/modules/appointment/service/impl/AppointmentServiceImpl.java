@@ -127,6 +127,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointmentRepository.findDetailedById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cita no encontrada: " + id));
         User changedBy = findOptionalUserByEmail(changedByEmail);
+        if (isPatientUser(changedBy) && !isAppointmentOwner(appointment, changedBy)) {
+            throw new BusinessException("No puedes modificar una cita de otro paciente.");
+        }
         AppointmentStatus previousStatus = appointment.getStatus();
         AppointmentStatus newStatus = parseStatus(request.status());
         appointment.setStatus(newStatus);

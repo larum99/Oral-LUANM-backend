@@ -21,6 +21,9 @@ public class PatientRegistrationRequest {
     private String documentType;
     private String numeroDeDocumento;
     private String documentNumber;
+    private Boolean acceptsTerms;
+    private Boolean acceptsData;
+    private Boolean acceptsPromotions;
     @NotBlank
     @Size(min = 8)
     private String password;
@@ -53,6 +56,12 @@ public class PatientRegistrationRequest {
     public void setNumeroDeDocumento(String numeroDeDocumento) { this.numeroDeDocumento = numeroDeDocumento; }
     public String getDocumentNumber() { return documentNumber; }
     public void setDocumentNumber(String documentNumber) { this.documentNumber = documentNumber; }
+    public Boolean getAcceptsTerms() { return acceptsTerms; }
+    public void setAcceptsTerms(Boolean acceptsTerms) { this.acceptsTerms = acceptsTerms; }
+    public Boolean getAcceptsData() { return acceptsData; }
+    public void setAcceptsData(Boolean acceptsData) { this.acceptsData = acceptsData; }
+    public Boolean getAcceptsPromotions() { return acceptsPromotions; }
+    public void setAcceptsPromotions(Boolean acceptsPromotions) { this.acceptsPromotions = acceptsPromotions; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 

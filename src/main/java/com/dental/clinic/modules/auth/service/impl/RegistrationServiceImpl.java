@@ -44,6 +44,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (request.getPassword() == null || request.getPassword().length() < 8) {
             throw new BusinessException("La contrasena debe tener minimo 8 caracteres.");
         }
+        if (!Boolean.TRUE.equals(request.getAcceptsTerms())) {
+            throw new BusinessException("Debes aceptar los terminos y condiciones.");
+        }
+        if (!Boolean.TRUE.equals(request.getAcceptsData())) {
+            throw new BusinessException("Debes aceptar la politica de tratamiento de datos.");
+        }
         if (userRepository.existsByEmailIgnoreCase(email)) {
             throw new DuplicateResourceException("Ya existe un usuario con ese correo.");
         }
@@ -67,8 +73,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         patient.setDocumentType(required(request.resolvedDocumentType(), "El tipo de documento es obligatorio."));
         patient.setDocumentNumber(documentNumber);
         patient.setBirthDate(request.resolvedBirthDate());
-        patient.setAcceptsData(true);
-        patient.setAcceptsPromotions(false);
+        patient.setAcceptsData(Boolean.TRUE.equals(request.getAcceptsData()));
+        patient.setAcceptsPromotions(Boolean.TRUE.equals(request.getAcceptsPromotions()));
         patientRepository.save(patient);
 
         return new RegistrationResponse(user.getId(), email, "client", "Usuario registrado correctamente.");

@@ -76,7 +76,7 @@ public class SpecialistsServicesController {
     }
 
     @GetMapping("/specialist-schedules")
-    @PreAuthorize("hasAnyRole('ADMIN','SECRETARIO','ESPECIALISTA')")
+    @PreAuthorize("hasAnyRole('ADMIN','SECRETARIO','ESPECIALISTA','PACIENTE')")
     public List<SpecialistScheduleResponse> schedules() {
         return catalogService.findSchedules();
     }

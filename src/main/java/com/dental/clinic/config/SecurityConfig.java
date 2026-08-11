@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                            .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/password-reset/request", "/api/auth/password-reset/confirm").permitAll()
+                            .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/password-reset/request", "/api/auth/password-reset/confirm", "/api/contact").permitAll()
                             .requestMatchers("/actuator/health/**").permitAll();
 
                     configureApiDocsAccess(auth);

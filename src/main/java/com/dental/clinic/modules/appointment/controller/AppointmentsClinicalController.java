@@ -61,7 +61,7 @@ public class AppointmentsClinicalController {
     }
 
     @PatchMapping("/appointments/{id}/status")
-    @PreAuthorize("hasAnyRole('ADMIN','SECRETARIO','ESPECIALISTA')")
+    @PreAuthorize("isAuthenticated()")
     public AppointmentResponse updateAppointmentStatus(@PathVariable Long id, @Valid @RequestBody AppointmentStatusRequest request, Authentication authentication) {
         return appointmentService.updateStatus(id, request, authentication.getName());
     }
